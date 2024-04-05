@@ -157,7 +157,11 @@ def pregunta_10():
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
 
-    return tbl0.groupby('_c1')['_c2'].apply(lambda x: ':'.join(x.sort_values().astype(str))).reset_index()
+    df = tbl0.sort_values(by='_c2', ascending=True)
+    df = df.groupby("_c1")["_c2"].apply(lambda x: ":".join(x.astype(str))).reset_index()
+    df = df.set_index('_c1', inplace=False)
+
+    return df
 
 def pregunta_11():
     """
